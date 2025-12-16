@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 class Controller{
-    protected function render(string $view)
+    protected function render(string $view, array $data = []): void
     {
+        extract($data);
+
         $content = __DIR__ . '/../../public/views/' . $view . '.php';
         $layout = __DIR__ . '/../../public/views/layout/main.php';
 

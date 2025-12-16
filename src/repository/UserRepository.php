@@ -13,4 +13,19 @@ class UserRepository
 
         return $user ?: null;
     }
+
+    public function create(string $email, string $passwordHash): void
+    {
+        $pdo = Database::getConnection();
+
+        $stmt = $pdo->prepare(
+            'INSERT INTO users (email, password_hash) VALUES (:email, :hash)'
+        );
+
+        $stmt->execute([
+            'email' => $email,
+            'hash' => $passwordHash
+        ]);
+    }
+
 }

@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../controllers/HomeController.php';
 require_once __DIR__ . '/../controllers/AuthController.php';
 require_once __DIR__ . '/../controllers/DashboardController.php';
-
+require_once __DIR__ . '/../controllers/MarketController.php';
 
 class Router {
     public function run()
@@ -29,6 +29,21 @@ class Router {
                 $controller = new DashboardController();
                 $controller->index();
                 break;
+
+            case '/register':
+                $controller = new AuthController();
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $controller->register();
+                } else {
+                    $controller->registerForm();
+                }
+                break;
+
+            case '/market':
+                $controller = new MarketController();
+                $controller->index();
+                break;
+
 
             default:
                 http_response_code(404);

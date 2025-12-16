@@ -1,6 +1,6 @@
-<h2>Login</h2>
+<h2>Rejestracja</h2>
 
-<form method="POST" action="/login">
+<form method="POST" action="/register">
     <label>
         Email:<br>
         <input type="email" name="email" required>
@@ -11,10 +11,6 @@
         <input type="password" name="password" required>
     </label><br><br>
 
-    <button type="submit">Zaloguj</button>
+    <button type="submit">Utwórz konto</button>
 </form>
-
-
-
-
 
