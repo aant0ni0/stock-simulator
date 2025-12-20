@@ -4,6 +4,10 @@ require_once __DIR__ . '/../controllers/HomeController.php';
 require_once __DIR__ . '/../controllers/AuthController.php';
 require_once __DIR__ . '/../controllers/DashboardController.php';
 require_once __DIR__ . '/../controllers/MarketController.php';
+require_once __DIR__ . '/../controllers/TradeController.php';
+require_once __DIR__ . '/../controllers/PortfolioController.php';
+
+
 
 class Router {
     public function run()
@@ -43,6 +47,26 @@ class Router {
                 $controller = new MarketController();
                 $controller->index();
                 break;
+
+
+            case '/buy':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $controller = new TradeController();
+                    $controller->buy();
+                }
+                break;
+
+
+            case '/sell':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    (new TradeController())->sell();
+                }
+                break;
+
+            case '/portfolio':
+                (new PortfolioController())->index();
+                break;
+
 
 
             default:
