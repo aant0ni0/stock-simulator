@@ -3,8 +3,9 @@
 <p>Jesteś zalogowany jako:</p>
 <pre><?php print_r($_SESSION['user']); ?></pre>
 
-<a href="/login">Wyloguj</a>
+<p>
+    Cash Balance:
+    <strong>$<?= number_format($cash, 2) ?></strong>
+</p>
 
-
-<?php
-
+<a href="/logout">Wyloguj</a>

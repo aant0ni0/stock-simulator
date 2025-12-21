@@ -49,4 +49,26 @@ class TransactionRepository
         ]);
     }
 
+    public function findByUser(int $userId): array
+    {
+        $pdo = Database::getConnection();
+
+        $stmt = $pdo->prepare(
+            'SELECT 
+            t.type,
+            s.symbol,
+            t.quantity,
+            t.price,
+            t.created_at
+         FROM transactions t
+         JOIN stocks s ON s.id = t.stock_id
+         WHERE t.user_id = :u
+         ORDER BY t.created_at DESC'
+        );
+
+        $stmt->execute(['u' => $userId]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

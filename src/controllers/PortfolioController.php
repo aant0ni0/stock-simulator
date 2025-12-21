@@ -13,11 +13,30 @@ class PortfolioController extends Controller
             exit;
         }
 
-        $repo = new PortfolioRepository();
-        $portfolio = $repo->findByUser($_SESSION['user']['id']);
+        $userId = $_SESSION['user']['id'];
+
+        $portfolioRepo = new PortfolioRepository();
+        $userRepo = new UserRepository();
+
+        $holdings = $portfolioRepo->getUserHoldingsWithStats($userId);
+        $cash = $userRepo->getCash($userId);
+
+        $holdingsValue = 0;
+        foreach ($holdings as $h) {
+            $holdingsValue += $h['quantity'] * $h['current_price'];
+        }
+
+        $totalValue = $cash + $holdingsValue;
+        $startCash = 10000;
+        $totalPnL = $totalValue - $startCash;
 
         $this->render('portfolio', [
-            'portfolio' => $portfolio
+            'holdings' => $holdings,
+            'cash' => $cash,
+            'holdingsValue' => $holdingsValue,
+            'totalValue' => $totalValue,
+            'totalPnL' => $totalPnL
         ]);
     }
+
 }

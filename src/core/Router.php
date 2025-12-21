@@ -6,6 +6,8 @@ require_once __DIR__ . '/../controllers/DashboardController.php';
 require_once __DIR__ . '/../controllers/MarketController.php';
 require_once __DIR__ . '/../controllers/TradeController.php';
 require_once __DIR__ . '/../controllers/PortfolioController.php';
+require_once __DIR__ . '/../controllers/TransactionController.php';
+require_once __DIR__ . '/../controllers/LeaderboardController.php';
 
 
 
@@ -67,6 +69,13 @@ class Router {
                 (new PortfolioController())->index();
                 break;
 
+            case '/transactions':
+                (new TransactionController())->index();
+                break;
+
+            case '/leaderboard':
+                (new LeaderboardController())->index();
+                break;
 
 
             default:

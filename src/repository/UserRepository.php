@@ -28,4 +28,29 @@ class UserRepository
         ]);
     }
 
+    public function getCash(int $userId): float
+    {
+        $pdo = Database::getConnection();
+
+        $stmt = $pdo->prepare(
+            'SELECT cash FROM users WHERE id = :id'
+        );
+        $stmt->execute(['id' => $userId]);
+
+        return (float)$stmt->fetchColumn();
+    }
+
+    public function updateCash(int $userId, float $amount): void
+    {
+        $pdo = Database::getConnection();
+
+        $stmt = $pdo->prepare(
+            'UPDATE users SET cash = cash + :amount WHERE id = :id'
+        );
+        $stmt->execute([
+            'amount' => $amount,
+            'id' => $userId
+        ]);
+    }
+
 }

@@ -56,21 +56,31 @@ class PortfolioRepository
 
     }
 
-    public function findByUser(int $userId): array
+    public function getUserHoldingsWithStats(int $userId): array
     {
         $pdo = Database::getConnection();
 
         $stmt = $pdo->prepare(
-            'SELECT p.stock_id, s.symbol, p.quantity
+            'SELECT
+            p.stock_id,
+            s.symbol,
+            p.quantity,
+            s.price AS current_price,
+            SUM(t.quantity * t.price) / SUM(t.quantity) AS avg_price
          FROM portfolio p
          JOIN stocks s ON s.id = p.stock_id
+         JOIN transactions t 
+           ON t.stock_id = p.stock_id 
+          AND t.user_id = p.user_id
+          AND t.type = \'BUY\'
          WHERE p.user_id = :u
-         ORDER BY s.symbol'
+         GROUP BY p.stock_id, s.symbol, p.quantity, s.price'
         );
 
         $stmt->execute(['u' => $userId]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
 }
