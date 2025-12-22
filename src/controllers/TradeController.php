@@ -47,4 +47,40 @@ class TradeController extends Controller{
             $this->render('error', ['message' => $e->getMessage()]);
         }
     }
+
+    public function handle(): void
+    {
+        if (!isset($_SESSION['user'])) {
+            header('Location: /login');
+            exit;
+        }
+
+        $stockId = (int)($_POST['stock_id'] ?? 0);
+        $qty     = (float)($_POST['quantity'] ?? 0);
+        $action  = $_POST['action'] ?? '';
+
+        if ($stockId <= 0 || $qty <= 0) {
+            echo 'Invalid data';
+            return;
+        }
+
+        $service = new TradeService();
+
+        try {
+            if ($action === 'buy') {
+                $service->buy($_SESSION['user']['id'], $stockId, $qty);
+            } elseif ($action === 'sell') {
+                $service->sell($_SESSION['user']['id'], $stockId, $qty);
+            } else {
+                echo 'Invalid action';
+                return;
+            }
+
+            header('Location: /asset?id=' . $stockId);
+            exit;
+
+        } catch (RuntimeException $e) {
+            echo $e->getMessage();
+        }
+    }
 }

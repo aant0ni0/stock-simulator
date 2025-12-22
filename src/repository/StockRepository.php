@@ -17,7 +17,7 @@ class StockRepository
         $pdo = Database::getConnection();
 
         $stmt = $pdo->prepare(
-            'SELECT symbol, name, price FROM stocks WHERE id = :id'
+            'SELECT * FROM stocks WHERE id = :id'
         );
         $stmt->execute(['id' => $stockId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);

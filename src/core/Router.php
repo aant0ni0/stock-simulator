@@ -82,6 +82,12 @@ class Router {
                 (new AssetController())->show();
                 break;
 
+            case '/trade':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    (new TradeController())->handle();
+                }
+                break;
+
 
             default:
                 http_response_code(404);

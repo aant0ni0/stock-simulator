@@ -44,3 +44,19 @@ $labels = array_map(
     });
 </script>
 
+<h3>Trade <?= htmlspecialchars($asset['symbol']) ?></h3>
+
+<form method="POST" action="/trade">
+    <input type="hidden" name="stock_id" value="<?= (int)$asset['id'] ?>">
+
+    <label>
+        Quantity:
+        <input type="number" name="quantity" step="0.01" min="0.01" required>
+    </label>
+
+    <br><br>
+
+    <button type="submit" name="action" value="buy">Buy</button>
+    <button type="submit" name="action" value="sell">Sell</button>
+</form>
+
