@@ -9,7 +9,7 @@ class PriceHistoryRepository
 
         $stmt = $pdo->prepare(
             'SELECT price, created_at
-             FROM price_history
+             FROM stock_price_history
              WHERE stock_id = :id
              ORDER BY created_at ASC
              LIMIT 30'

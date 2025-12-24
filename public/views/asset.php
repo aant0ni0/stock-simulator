@@ -1,5 +1,12 @@
 <h2><?= htmlspecialchars($asset['name']) ?> (<?= htmlspecialchars($asset['symbol']) ?>)</h2>
-<p>Current price: $<?= number_format($asset['price'], 2) ?></p>
+<p>
+    Current price: $<?= number_format($asset['price'], 2) ?>
+    <span style="margin-left:10px; color: <?= $change24h >= 0 ? 'green' : 'red' ?>">
+        <?= $change24h >= 0 ? '+' : '' ?>
+        <?= number_format($change24h, 2) ?>%
+        (24h)
+    </span>
+</p>
 
 <canvas id="priceChart" width="700" height="300"></canvas>
 

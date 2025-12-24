@@ -1,0 +1,1 @@
+*/5 * * * * /usr/local/bin/php /var/www/scripts/price_simulator.php >> /var/www/cron.log 2>&1

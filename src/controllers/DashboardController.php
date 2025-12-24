@@ -20,9 +20,16 @@ class DashboardController extends Controller
         $cash = $userRepo->getCash($_SESSION['user']['id']);
         $stocks = $stockRepo->findAll();
 
+        foreach ($stocks as &$stock) {
+            $stock['change_24h'] = $stockRepo->get24hChange($stock['id']);
+        }
+        unset($stock);
+
         $this->render('dashboard', [
             'stocks' => $stocks,
             'cash' => $cash
         ]);
     }
+
+
 }

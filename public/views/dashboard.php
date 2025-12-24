@@ -18,7 +18,13 @@
             <strong><?= htmlspecialchars($s['symbol']) ?></strong>
             <?= htmlspecialchars($s['name']) ?> –
             $<?= number_format($s['price'], 2) ?>
-
+            24h:  <?php
+            $c = $s['change_24h'];
+            $sign = $c > 0 ? '+' : '';
+            ?>
+            <span style="color: <?= $c >= 0 ? 'green' : 'red' ?>">
+                <?= $sign . number_format($c, 2) ?>%
+             </span>
             <button
                     class="trade-btn"
                     data-action="buy"

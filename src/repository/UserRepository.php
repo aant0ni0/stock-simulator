@@ -18,15 +18,20 @@ class UserRepository
     {
         $pdo = Database::getConnection();
 
+        $username = explode('@', $email)[0];
+
         $stmt = $pdo->prepare(
-            'INSERT INTO users (email, password_hash) VALUES (:email, :hash)'
+            'INSERT INTO users (username, email, password_hash)
+         VALUES (:username, :email, :password)'
         );
 
         $stmt->execute([
-            'email' => $email,
-            'hash' => $passwordHash
+            'username' => $username,
+            'email'    => $email,
+            'password' => $passwordHash
         ]);
     }
+
 
     public function getCash(int $userId): float
     {

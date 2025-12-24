@@ -24,11 +24,13 @@ class AssetController extends Controller
         $priceRepo = new PriceHistoryRepository();
 
         $asset = $stockRepo->getAssetById($stockId);
+        $change24h = $stockRepo->get24hChange($stockId);
         $history = $priceRepo->getLast30Days($stockId);
 
         $this->render('asset', [
             'asset' => $asset,
-            'history' => $history
+            'history' => $history,
+            'change24h' => $change24h
         ]);
     }
 }
