@@ -3,6 +3,8 @@
 require_once __DIR__ . '/../core/Controller.php';
 require_once __DIR__ . '/../repository/UserRepository.php';
 require_once __DIR__ . '/../repository/UserRepository.php';
+require_once __DIR__ . '/../core/Flash.php';
+
 
 
 class AuthController extends Controller
@@ -20,26 +22,28 @@ class AuthController extends Controller
 
     public function register(): void
     {
-        $email = $_POST['email'] ?? '';
+        $email    = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
         if ($email === '' || $password === '') {
-            echo "All fields are required";
-            return;
+            Flash::add('error', 'All fields are required.');
+            header('Location: /register', true, 303);
+            exit;
         }
-
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
         $repo = new UserRepository();
 
         if ($repo->findByEmail($email)) {
-            echo "User with this email already exists";
-            return;
+            Flash::add('error', 'User with this email already exists.');
+            header('Location: /register', true, 303);
+            exit;
         }
 
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $repo->create($email, $passwordHash);
 
-        header('Location: /login');
+        Flash::add('success', 'Account created. You can log in now.');
+        header('Location: /login', true, 303);
         exit;
     }
 
@@ -54,8 +58,9 @@ class AuthController extends Controller
         $user = $repo->findByEmail($email);
 
         if (!$user || !password_verify($password, $user['password_hash'])) {
-            $this->render('login', ['error' => 'Invalid credentials']);
-            return;
+            Flash::add('error', 'Invalid email or password.');
+            header('Location: /login', true, 303);
+            exit;
         }
 
         $_SESSION['user'] = [
@@ -63,16 +68,26 @@ class AuthController extends Controller
             'email' => $user['email'],
         ];
 
-        header('Location: /dashboard');
+        Flash::add('success', 'Logged in successfully.');
+        header('Location: /dashboard', true, 303);
         exit;
     }
 
-    public function logout()
+    public function logout(): void
     {
-        session_destroy();
+        session_start();
+        session_unset();
 
-        header('Location: /login');
+        $_SESSION['flash'][] = [
+            'type' => 'info',
+            'message' => 'You have been logged out.'
+        ];
+
+        session_write_close();
+
+        header('Location: /login', true, 303);
         exit;
     }
+
 
 }

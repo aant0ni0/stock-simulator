@@ -58,4 +58,53 @@ class UserRepository
         ]);
     }
 
+    public function get24hChange(int $userId): float
+    {
+        $pdo = Database::getConnection();
+
+        $stmt = $pdo->prepare(
+            'SELECT total_value
+         FROM user_portfolio_snapshots
+         WHERE user_id = :id
+           AND created_at <= NOW() - INTERVAL \'24 hours\'
+         ORDER BY created_at DESC
+         LIMIT 1'
+        );
+        $stmt->execute(['id' => $userId]);
+        $value24h = $stmt->fetchColumn();
+
+        if ($value24h === false) {
+            $stmt = $pdo->prepare(
+                'SELECT total_value
+             FROM user_portfolio_snapshots
+             WHERE user_id = :id
+             ORDER BY created_at ASC
+             LIMIT 1'
+            );
+            $stmt->execute(['id' => $userId]);
+            $value24h = $stmt->fetchColumn();
+        }
+
+        if ($value24h === false) {
+            return 0.0;
+        }
+
+        $stmt = $pdo->prepare(
+            'SELECT total_value
+         FROM user_portfolio_snapshots
+         WHERE user_id = :id
+         ORDER BY created_at DESC
+         LIMIT 1'
+        );
+        $stmt->execute(['id' => $userId]);
+        $currentValue = (float)$stmt->fetchColumn();
+
+        if ((float)$value24h == 0.0) {
+            return 0.0;
+        }
+
+        return (($currentValue - (float)$value24h) / (float)$value24h) * 100;
+    }
+
+
 }

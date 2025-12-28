@@ -16,6 +16,16 @@
             <a href="/dashboard">Dashboard</a>
         </nav>
     </header>
+    <?php if (!empty($_SESSION['flash'])): ?>
+        <div class="flash-container">
+            <?php foreach (Flash::getAll() as $f): ?>
+                <div class="flash <?= htmlspecialchars($f['type']) ?>">
+                    <?= htmlspecialchars($f['message']) ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
 
     <main>
         <?php require $content; ?>
@@ -26,5 +36,19 @@
     </footer>
 
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const flashes = document.querySelectorAll(".flash");
+            flashes.forEach(flash => {
+                setTimeout(() => flash.classList.add("hide"), 3500);
+                setTimeout(() => flash.remove(), 4000);
+            });
+        });
+    </script>
+
+
+
 </body>
+
+
 </html>

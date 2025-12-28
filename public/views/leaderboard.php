@@ -6,6 +6,7 @@
         <th>Rank</th>
         <th>Username</th>
         <th>Portfolio Value</th>
+        <th>24 Change</th>
     </tr>
 
     <?php foreach ($leaders as $index => $user): ?>
@@ -18,6 +19,15 @@
                 <?php endif; ?>
             </td>
             <td>$<?= number_format($user['total_value'], 2) ?></td>
+            <td>
+                <?php
+                $change = $user['change_24h'];
+                $sign = $change >= 0 ? '+' : '';
+                ?>
+                <span style="color: <?= $change >= 0 ? 'green' : 'red' ?>">
+                    <?= $sign . number_format($change, 2) ?>%
+                </span>
+            </td>
         </tr>
     <?php endforeach; ?>
 </table>

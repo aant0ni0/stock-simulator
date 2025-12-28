@@ -1,7 +1,9 @@
 <?php
 
 require_once __DIR__ . '/../core/Controller.php';
+require_once __DIR__ . '/../core/Flash.php';
 require_once __DIR__ . '/../services/TradeService.php';
+
 
 class TradeController extends Controller{
     public function buy(): void{
@@ -13,13 +15,20 @@ class TradeController extends Controller{
         $stockId = (int)($_POST['stock_id'] ?? 0);
         $quantity = (int)($_POST['quantity'] ?? 0);
 
+        $redirect = $_SERVER['HTTP_REFERER'] ?? '/portfolio';
+
         try{
             $service = new TradeService();
             $service->buy($_SESSION['user']['id'], $stockId, $quantity);
-            header('Location: /portfolio');
+
+
+            Flash::add('success', 'Stock bought successfully.');
+            header("Location: $redirect", true, 303);
             exit;
         }catch (RuntimeException $e){
-            $this->render('error', ['message' => $e->getMessage()]);
+            Flash::add('error', $e->getMessage());
+            header("Location: $redirect", true, 303);
+            exit;
         }
     }
 
@@ -33,6 +42,8 @@ class TradeController extends Controller{
         $stockId = (int)($_POST['stock_id'] ?? 0);
         $quantity = (int)($_POST['quantity'] ?? 0);
 
+        $redirect = $_SERVER['HTTP_REFERER'] ?? '/portfolio';
+
         if($stockId <= 0 || $quantity <= 0){
             $this->render('error', ['message' => 'Invalid stock ID or quantity']);
             return;
@@ -41,10 +52,14 @@ class TradeController extends Controller{
         try{
             $service = new TradeService();
             $service->sell($_SESSION['user']['id'], $stockId, $quantity);
-            header('Location: /portfolio');
+
+            Flash::add('success', 'Stock sold successfully.');
+            header("Location: $redirect", true, 303);
             exit;
         } catch (RuntimeException $e) {
-            $this->render('error', ['message' => $e->getMessage()]);
+            Flash::add('error', $e->getMessage());
+            header("Location: $redirect", true, 303);
+            exit;
         }
     }
 

@@ -59,4 +59,32 @@ foreach ($stocks as $stock) {
     echo "Stock {$stock['id']} updated: {$oldPrice} → {$newPrice}\n";
 }
 
+$stmtUsers = $pdo->query('SELECT id, cash FROM users');
+$users = $stmtUsers->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($users as $user) {
+
+    $stmtValue = $pdo->prepare(
+        'SELECT COALESCE(SUM(p.quantity * s.price), 0)
+         FROM portfolio p
+         JOIN stocks s ON s.id = p.stock_id
+         WHERE p.user_id = :uid'
+    );
+    $stmtValue->execute(['uid' => $user['id']]);
+    $holdingsValue = (float)$stmtValue->fetchColumn();
+
+    $totalValue = (float)$user['cash'] + $holdingsValue;
+
+    $stmtInsert = $pdo->prepare(
+        'INSERT INTO user_portfolio_snapshots (user_id, total_value)
+         VALUES (:uid, :value)'
+    );
+
+    $stmtInsert->execute([
+        'uid'   => $user['id'],
+        'value' => $totalValue
+    ]);
+}
+
+
 echo "Price simulation finished.\n";
