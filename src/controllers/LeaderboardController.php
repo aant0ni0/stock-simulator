@@ -24,6 +24,7 @@ class LeaderboardController extends Controller
         unset($leader);
 
         $this->render('leaderboard', [
+            'page' => 'leaderboard',
             'leaders' => $leaders,
             'currentUserId' => $_SESSION['user']['id']
         ]);

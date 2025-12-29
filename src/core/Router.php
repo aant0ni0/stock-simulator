@@ -32,6 +32,11 @@ class Router {
                 }
                 break;
 
+            case '/logout':
+                $controller = new AuthController();
+                $controller->logout();
+                break;
+
             case '/dashboard':
                 $controller = new DashboardController();
                 $controller->index();

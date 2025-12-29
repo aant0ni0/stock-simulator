@@ -1,7 +1,6 @@
 <h2>Portfolio</h2>
 <p>Your investments and performance</p>
 
-<!-- KAFELKI PODSUMOWANIA -->
 <div>
     <p><strong>Total Value:</strong> $<?= number_format($totalValue, 2) ?></p>
     <p><strong>Cash Balance:</strong> $<?= number_format($cash, 2) ?></p>

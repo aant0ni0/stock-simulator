@@ -1,0 +1,31 @@
+:root {
+    --color-bg: #f8fafc;
+    --color-surface: #ffffff;
+    --color-border: #e5e7eb;
+
+    --color-text-main: #0f172a;
+    --color-text-muted: #64748b;
+
+    --color-primary: #2563eb;
+    --color-primary-soft: #eff6ff;
+
+    --color-success: #16a34a;
+    --color-danger: #ef4444;
+
+    --font-main: 'Poppins', sans-serif;
+
+    --font-size-sm: 0.8125rem;
+    --font-size-base: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+
+    --radius-sm: 0.5rem;
+    --radius-md: 0.625rem;
+    --radius-lg: 0.875rem;
+
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+}

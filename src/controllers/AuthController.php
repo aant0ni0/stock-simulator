@@ -75,7 +75,6 @@ class AuthController extends Controller
 
     public function logout(): void
     {
-        session_start();
         session_unset();
 
         $_SESSION['flash'][] = [

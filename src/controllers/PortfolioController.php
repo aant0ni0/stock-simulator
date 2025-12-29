@@ -31,6 +31,7 @@ class PortfolioController extends Controller
         $totalPnL = $totalValue - $startCash;
 
         $this->render('portfolio', [
+            'page' => 'portfolio',
             'holdings' => $holdings,
             'cash' => $cash,
             'holdingsValue' => $holdingsValue,

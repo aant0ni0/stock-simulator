@@ -26,6 +26,7 @@ class DashboardController extends Controller
         unset($stock);
 
         $this->render('dashboard', [
+            'page' => 'dashboard',
             'stocks' => $stocks,
             'cash' => $cash
         ]);

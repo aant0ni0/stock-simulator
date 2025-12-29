@@ -1,0 +1,29 @@
+.flash-container {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 1000;
+}
+
+.flash {
+    background: var(--color-text-main);
+    color: #fff;
+    padding: 0.75rem 1.125rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 0.625rem;
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.flash.success {
+    background: var(--color-success);
+}
+
+.flash.error {
+    background: var(--color-danger);
+}
+
+.flash.hide {
+    opacity: 0;
+    transform: translateY(-0.625rem);
+}
