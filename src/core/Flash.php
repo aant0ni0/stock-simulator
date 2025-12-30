@@ -9,6 +9,7 @@ class Flash
             'type' => $type,
             'message' => $message
         ];
+
     }
 
     public static function getAll(): array

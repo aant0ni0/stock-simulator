@@ -1,102 +1,107 @@
-<h2>Dashboard</h2>
+<section class="dashboard-header">
+    <div>
+        <h1>Market Dashboard</h1>
+        <p class="muted">Live asset prices and trading</p>
+    </div>
 
-<p>
-    Cash Balance:
-    <strong>$<?= number_format($cash, 2) ?></strong>
-</p>
+    <div class="cash-card">
+        <span class="muted">Cash Balance</span>
+        <strong class="cash-value">
+            $<?= number_format($cash, 2) ?>
+        </strong>
+    </div>
+</section>
 
-<hr>
+<div class="dashboard-grid">
 
-<h3>Market</h3>
+    <section class="card">
+        <h2 class="card-title">Available Assets</h2>
 
-<?php if (empty($stocks)): ?>
-    <p>No assets available.</p>
-<?php else: ?>
-
-    <?php foreach ($stocks as $s): ?>
-        <div style="margin-bottom:10px;">
-            <strong><?= htmlspecialchars($s['symbol']) ?></strong>
-            <?= htmlspecialchars($s['name']) ?> –
-            $<?= number_format($s['price'], 2) ?>
-            24h:  <?php
+        <?php foreach ($stocks as $s): ?>
+            <?php
             $c = $s['change_24h'];
-            $sign = $c > 0 ? '+' : '';
+            $isUp = $c >= 0;
             ?>
-            <span style="color: <?= $c >= 0 ? 'green' : 'red' ?>">
-                <?= $sign . number_format($c, 2) ?>%
-             </span>
-            <button
-                    class="trade-btn"
-                    data-action="buy"
-                    data-stock-id="<?= (int)$s['id'] ?>"
-                    data-symbol="<?= htmlspecialchars($s['symbol']) ?>"
-                    data-name="<?= htmlspecialchars($s['name']) ?>"
-                    data-price="<?= number_format($s['price'], 2) ?>"
-            >
-                Buy
-            </button>
+            <div class="asset-row">
+                <a href="/asset?id=<?= $s['id'] ?>" class="asset-row-link">
+                <div class="asset-info">
+                    <div class="asset-icon">
+                        <?= strtoupper($s['symbol'][0]) ?>
+                    </div>
+                    <div>
+                        <strong><?= htmlspecialchars($s['symbol']) ?></strong>
+                        <div class="muted"><?= htmlspecialchars($s['name']) ?></div>
+                    </div>
+                </div>
+                </a>
 
-            <button
-                    class="trade-btn"
-                    data-action="sell"
-                    data-stock-id="<?= (int)$s['id'] ?>"
-                    data-symbol="<?= htmlspecialchars($s['symbol']) ?>"
-                    data-name="<?= htmlspecialchars($s['name']) ?>"
-                    data-price="<?= number_format($s['price'], 2) ?>"
-            >
-                Sell
-            </button>
+                <div class="asset-price">
+                    <strong>$<?= number_format($s['price'], 2) ?></strong>
+                    <span class="<?= $isUp ? 'up' : 'down' ?>">
+                        <?= $isUp ? '▲' : '▼' ?>
+                        <?= number_format($c, 2) ?>%
+                    </span>
+                </div>
+
+                <div class="asset-actions">
+                    <button
+                            class="btn btn-buy trade-btn"
+                            data-action="buy"
+                            data-stock-id="<?= $s['id'] ?>"
+                            data-symbol="<?= htmlspecialchars($s['symbol']) ?>"
+                            data-name="<?= htmlspecialchars($s['name']) ?>"
+                            data-price="<?= number_format($s['price'], 2) ?>"
+                    >
+                        Buy
+                    </button>
+
+                    <button
+                            class="btn btn-outline trade-btn"
+                            data-action="sell"
+                            data-stock-id="<?= $s['id'] ?>"
+                            data-symbol="<?= htmlspecialchars($s['symbol']) ?>"
+                            data-name="<?= htmlspecialchars($s['name']) ?>"
+                            data-price="<?= number_format($s['price'], 2) ?>"
+                    >
+                        Sell
+                    </button>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </section>
+
+    <section class="card qt-card">
+        <h2 class="card-title">Quick Trade</h2>
+
+        <div class="qt-asset">
+            <div class="qt-asset-main">
+                <span class="qt-symbol" id="qt_name">Select asset</span>
+                <span class="qt-price">
+                $<span id="qt_price">–</span>
+            </span>
+            </div>
+            <span class="qt-hint">Click any asset on the left</span>
         </div>
-    <?php endforeach; ?>
 
-    <h3>Quick Trade</h3>
+        <form method="POST" action="/trade" id="quickTradeForm" class="qt-form">
+            <input type="hidden" name="stock_id" id="qt_stock_id">
+            <input type="hidden" name="action" id="qt_action">
 
-    <form method="POST" action="/trade" id="quickTradeForm">
-        <input type="hidden" name="stock_id" id="qt_stock_id">
-        <input type="hidden" name="action" id="qt_action">
+            <div class="qt-field">
+                <label>Quantity</label>
+                <input type="number" name="quantity" step="1" min="1" placeholder="Enter amount" required>
+            </div>
 
-        <p>
-            <strong id="qt_name">Select an asset</strong><br>
-            Price: $<span id="qt_price">–</span>
-        </p>
-
-        <label>
-            Quantity:
-            <input type="number" name="quantity" step="0.01" min="0.01" required>
-        </label>
-
-        <br><br>
-
-        <button type="submit" id="qt_submit" disabled>
-            Execute
-        </button>
-    </form>
+            <div class="qt-actions">
+                <button type="submit" id="qt_submit" class="btn qt-btn" disabled>
+                    Execute Trade
+                </button>
+            </div>
+        </form>
+    </section>
 
 
+</div>
 
-<?php endif; ?>
+<script type="module" src="/assets/js/dashboard.js"></script>
 
-
-<script>
-    document.querySelectorAll('.trade-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const stockId = btn.dataset.stockId;
-            const symbol  = btn.dataset.symbol;
-            const name    = btn.dataset.name;
-            const price   = btn.dataset.price;
-            const action  = btn.dataset.action;
-
-            document.getElementById('qt_stock_id').value = stockId;
-            document.getElementById('qt_action').value = action;
-
-            document.getElementById('qt_name').innerText =
-                `${symbol} – ${name}`;
-
-            document.getElementById('qt_price').innerText = price;
-
-            document.getElementById('qt_submit').disabled = false;
-            document.getElementById('qt_submit').innerText =
-                `${action.toUpperCase()}`;
-        });
-    });
-</script>

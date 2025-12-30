@@ -11,13 +11,12 @@ class AuthController extends Controller
 {
     public function loginForm()
     {
-        $this->render('login');
-
+        $this->render('login', [], 'auth');
     }
 
     public function registerForm(): void
     {
-        $this->render('register');
+        $this->render('register', [], 'auth');
     }
 
     public function register(): void
@@ -46,7 +45,6 @@ class AuthController extends Controller
         header('Location: /login', true, 303);
         exit;
     }
-
 
 
     public function login()

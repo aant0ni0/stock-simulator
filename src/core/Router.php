@@ -19,8 +19,8 @@ class Router {
 
         switch ($path) {
             case '/':
-                $controller = new HomeController();
-                $controller->index();
+            case '/dashboard':
+                (new DashboardController())->index();
                 break;
 
             case '/login':
@@ -35,11 +35,6 @@ class Router {
             case '/logout':
                 $controller = new AuthController();
                 $controller->logout();
-                break;
-
-            case '/dashboard':
-                $controller = new DashboardController();
-                $controller->index();
                 break;
 
             case '/register':

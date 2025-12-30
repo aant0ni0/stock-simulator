@@ -1,16 +1,25 @@
-<h2>Rejestracja</h2>
+<div class="auth-card">
+    <div class="auth-logo">📈</div>
 
-<form method="POST" action="/register">
-    <label>
-        Email:<br>
-        <input type="email" name="email" required>
-    </label><br><br>
+    <h1 class="auth-title">Create account</h1>
+    <p class="auth-subtitle">Start your trading journey</p>
 
-    <label>
-        Hasło:<br>
-        <input type="password" name="password" required>
-    </label><br><br>
+    <form method="POST" action="/register" class="auth-form">
+        <label>
+            Email
+            <input type="email" name="email" required>
+        </label>
 
-    <button type="submit">Utwórz konto</button>
-</form>
+        <label>
+            Password
+            <input type="password" name="password" required>
+        </label>
 
+        <button type="submit" class="btn-primary">Create account</button>
+    </form>
+
+    <p class="auth-footer">
+        Already have an account?
+        <a href="/login">Sign in</a>
+    </p>
+</div>

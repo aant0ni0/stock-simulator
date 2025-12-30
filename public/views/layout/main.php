@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" href="/assets/css/app.css">
 </head>
-<body>
+<body data-page="<?= $page ?? '' ?>">
 
 <div class="app-layout">
 

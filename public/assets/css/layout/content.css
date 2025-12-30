@@ -1,4 +1,5 @@
 .content {
     flex: 1;
     padding: var(--space-xl);
+    background: linear-gradient(180deg, #EEF5FF 0%, #EAF2FF 100%);
 }

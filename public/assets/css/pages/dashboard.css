@@ -1,0 +1,209 @@
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+}
+
+.muted {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.cash-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.5rem;
+    text-align: right;
+}
+
+.cash-value {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--color-success);
+    font-size: 1.125rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-xl);
+}
+
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-lg);
+}
+
+.asset-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--color-border);
+    cursor: pointer;
+}
+
+.asset-row:first-of-type {
+    border-top: none;
+}
+
+.asset-row:hover {
+    background: var(--color-primary-soft)
+}
+
+.asset-row:active {
+}
+
+.asset-row-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+}
+
+
+
+.asset-info {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+.asset-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.asset-price {
+    text-align: right;
+}
+
+.up {
+    color: var(--color-success);
+    font-size: var(--font-size-sm);
+}
+
+.down {
+    color: var(--color-danger);
+    font-size: var(--font-size-sm);
+}
+
+.asset-actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: flex-end;
+}
+
+.btn {
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-buy {
+    background: var(--color-success);
+    color: #fff;
+}
+
+.btn-outline {
+    background: transparent;
+    background: var(--color-danger);
+    color: #fff;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+}
+.qt-card {
+    padding: var(--space-lg);
+}
+
+.qt-asset {
+    background: var(--color-primary-soft);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+.qt-asset-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.qt-symbol {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.qt-price {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.qt-hint {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.qt-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.qt-field input {
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    font-family: inherit;
+}
+
+.qt-actions {
+    margin-top: var(--space-md);
+}
+
+.qt-btn {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: var(--radius-lg);
+    background: var(--color-primary);
+    color: #fff;
+    font-weight: 600;
+    transition: transform .1s ease, box-shadow .1s ease;
+}
+
+.qt-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.qt-btn:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+

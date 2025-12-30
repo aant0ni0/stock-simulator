@@ -17,10 +17,12 @@
 
 .flash.success {
     background: var(--color-success);
+    color: #fff;
 }
 
 .flash.error {
     background: var(--color-danger);
+    color: #fff;
 }
 
 .flash.hide {

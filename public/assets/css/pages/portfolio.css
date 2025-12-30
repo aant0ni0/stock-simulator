@@ -1,0 +1,89 @@
+.portfolio-header {
+    margin-bottom: var(--space-xl);
+}
+
+.portfolio-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.summary-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.summary-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #fff;
+}
+
+.summary-icon.blue { background: #3b82f6; }
+.summary-icon.green { background: var(--color-success); }
+.summary-icon.red { background: var(--color-danger); }
+.summary-icon.purple { background: #a855f7; }
+
+.portfolio-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--space-md);
+}
+
+.portfolio-table th {
+    text-align: left;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.portfolio-table td {
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+}
+
+.pnl-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.pnl-badge.up {
+    background: #dcfce7;
+    color: var(--color-success);
+}
+
+.pnl-badge.down {
+    background: #fee2e2;
+    color: var(--color-danger);
+}
+
+.sell-form {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.sell-form input {
+    width: 5rem;
+    padding: 0.4rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    font-family: inherit;
+}
+
+.success { color: var(--color-success); }
+.danger { color: var(--color-danger); }

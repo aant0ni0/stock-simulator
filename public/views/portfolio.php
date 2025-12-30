@@ -1,71 +1,112 @@
-<h2>Portfolio</h2>
-<p>Your investments and performance</p>
+<section class="portfolio-header">
+    <h1>Portfolio</h1>
+    <p class="muted">Your investments and performance</p>
+</section>
 
-<div>
-    <p><strong>Total Value:</strong> $<?= number_format($totalValue, 2) ?></p>
-    <p><strong>Cash Balance:</strong> $<?= number_format($cash, 2) ?></p>
-    <p><strong>Holdings Value:</strong> $<?= number_format($holdingsValue, 2) ?></p>
-    <p>
-        <strong>Total P&amp;L:</strong>
-        <?= $totalPnL >= 0 ? '+' : '' ?>$<?= number_format($totalPnL, 2) ?>
-    </p>
+<div class="portfolio-summary">
+
+    <div class="summary-card">
+        <div class="summary-icon blue">💼</div>
+        <div>
+            <span class="muted">Total Value</span>
+            <strong>$<?= number_format($totalValue, 2) ?></strong>
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-icon green">$</div>
+        <div>
+            <span class="muted">Cash Balance</span>
+            <strong class="success">$<?= number_format($cash, 2) ?></strong>
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-icon purple">📈</div>
+        <div>
+            <span class="muted">Holdings Value</span>
+            <strong>$<?= number_format($holdingsValue, 2) ?></strong>
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-icon <?= $totalPnL >= 0 ? 'green' : 'red' ?>">
+            <?= $totalPnL >= 0 ? '▲' : '▼' ?>
+        </div>
+        <div>
+            <span class="muted">Total P&amp;L</span>
+            <strong class="<?= $totalPnL >= 0 ? 'success' : 'danger' ?>">
+                <?= $totalPnL >= 0 ? '+' : '' ?>$<?= number_format($totalPnL, 2) ?>
+            </strong>
+        </div>
+    </div>
+
 </div>
 
-<hr>
+<section class="card">
+    <h2 class="card-title">Your Holdings</h2>
 
-<h3>Your Holdings</h3>
+    <?php if (empty($holdings)): ?>
+        <p class="muted">You do not own any assets yet.</p>
+    <?php else: ?>
 
-<?php if (empty($holdings)): ?>
-    <p>You do not own any assets yet.</p>
-<?php else: ?>
-
-    <table border="1" cellpadding="5">
-        <tr>
-            <th>Asset</th>
-            <th>Quantity</th>
-            <th>Avg. Price</th>
-            <th>Current Price</th>
-            <th>Total Value</th>
-            <th>Profit / Loss</th>
-            <th>P&amp;L %</th>
-            <th>Sell</th>
-        </tr>
-
-        <?php foreach ($holdings as $h):
-            $total = $h['quantity'] * $h['current_price'];
-            $pnl = ($h['current_price'] - $h['avg_price']) * $h['quantity'];
-            $pnlPct = ($h['avg_price'] > 0)
-                    ? ($pnl / ($h['avg_price'] * $h['quantity'])) * 100
-                    : 0;
-            ?>
+        <table class="portfolio-table">
+            <thead>
             <tr>
-                <td><?= htmlspecialchars($h['symbol']) ?></td>
-                <td><?= (float)$h['quantity'] ?></td>
-                <td>$<?= number_format($h['avg_price'], 2) ?></td>
-                <td>$<?= number_format($h['current_price'], 2) ?></td>
-                <td>$<?= number_format($total, 2) ?></td>
-                <td>
-                    <?= $pnl >= 0 ? '+' : '' ?>$<?= number_format($pnl, 2) ?>
-                </td>
-                <td>
-                    <?= $pnl >= 0 ? '+' : '' ?><?= number_format($pnlPct, 2) ?>%
-                </td>
-                <td>
-                    <form method="POST" action="/sell">
-                        <input type="hidden" name="stock_id" value="<?= (int)$h['stock_id'] ?>">
-                        <input
-                                type="number"
-                                name="quantity"
-                                min="1"
-                                max="<?= (int)$h['quantity'] ?>"
-                                required
-                        >
-                        <button type="submit">Sell</button>
-                    </form>
-                </td>
-
+                <th>Asset</th>
+                <th>Quantity</th>
+                <th>Avg. Price</th>
+                <th>Current Price</th>
+                <th>Total Value</th>
+                <th>Profit / Loss</th>
+                <th>P&amp;L %</th>
+                <th></th>
             </tr>
-        <?php endforeach; ?>
-    </table>
+            </thead>
 
-<?php endif; ?>
+            <tbody>
+            <?php foreach ($holdings as $h):
+                $quantity = (float)$h['quantity'];
+                $avg = (float)$h['avg_price'];
+                $current = (float)$h['current_price'];
+
+                $total = $quantity * $current;
+                $pnl = ($current - $avg) * $quantity;
+                $pnlPct = $avg > 0 ? ($pnl / ($avg * $quantity)) * 100 : 0;
+                $isUp = $pnl >= 0;
+                ?>
+                <tr>
+                    <td><strong><?= htmlspecialchars($h['symbol']) ?></strong></td>
+                    <td><?= $quantity ?></td>
+                    <td>$<?= number_format($avg, 2) ?></td>
+                    <td>$<?= number_format($current, 2) ?></td>
+                    <td>$<?= number_format($total, 2) ?></td>
+                    <td class="<?= $isUp ? 'success' : 'danger' ?>">
+                        <?= $isUp ? '+' : '' ?>$<?= number_format($pnl, 2) ?>
+                    </td>
+                    <td>
+                        <span class="pnl-badge <?= $isUp ? 'up' : 'down' ?>">
+                            <?= $isUp ? '+' : '' ?><?= number_format($pnlPct, 2) ?>%
+                        </span>
+                    </td>
+                    <td>
+                        <form method="POST" action="/sell" class="sell-form">
+                            <input type="hidden" name="stock_id" value="<?= (int)$h['stock_id'] ?>">
+                            <input
+                                    type="number"
+                                    name="quantity"
+                                    step="0.01"
+                                    min="0.01"
+                                    max="<?= $quantity ?>"
+                                    required
+                            >
+                            <button type="submit" class="btn btn-sell">Sell</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+
+    <?php endif; ?>
+</section>
