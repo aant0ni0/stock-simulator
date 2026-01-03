@@ -13,7 +13,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/app.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+
 </head>
+
+
+
+
 <body data-page="<?= $page ?? '' ?>">
 
 <div class="app-layout">
@@ -29,15 +39,27 @@
             </div>
 
             <nav class="nav">
-                <a href="/dashboard" class="nav-item <?= ($page ?? '') === 'dashboard' ? 'active' : '' ?>">Dashboard</a>
-                <a href="/portfolio"  class="nav-item <?= ($page ?? '') === 'portfolio'  ? 'active' : '' ?>">Portfolio</a>
-                <a href="/leaderboard"class="nav-item <?= ($page ?? '') === 'leaderboard'? 'active' : '' ?>">Leaderboard</a>
+                <a href="/dashboard" class="nav-item <?= ($page ?? '') === 'dashboard' ? 'active' : '' ?>">
+                    <i data-lucide="layout-dashboard"></i>
+                    Dashboard
+                </a>
+                <a href="/portfolio"  class="nav-item <?= ($page ?? '') === 'portfolio'  ? 'active' : '' ?>">
+                    <i data-lucide="wallet"></i>
+                    Portfolio
+                </a>
+                <a href="/leaderboard"class="nav-item <?= ($page ?? '') === 'leaderboard'? 'active' : '' ?>">
+                    <i data-lucide="trophy"></i>
+                    Leaderboard
+                </a>
             </nav>
 
         </div>
 
         <div class="sidebar-bottom">
-            <a href="/logout" class="logout">Logout</a>
+            <a href="/logout" class="logout">
+                <i data-lucide="log-out"></i>
+                Logout
+            </a>
         </div>
     </aside>
 

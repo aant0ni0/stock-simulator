@@ -9,4 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     import(`./pages/${page}.js`)
         .then(m => m.default())
         .catch(() => {});
+
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 });

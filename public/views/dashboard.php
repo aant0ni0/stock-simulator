@@ -17,6 +17,8 @@
     <section class="card">
         <h2 class="card-title">Available Assets</h2>
 
+        <div class="assets-scroll">
+
         <?php foreach ($stocks as $s): ?>
             <?php
             $c = $s['change_24h'];
@@ -68,6 +70,7 @@
                 </div>
             </div>
         <?php endforeach; ?>
+        </div>
     </section>
 
     <section class="card qt-card">

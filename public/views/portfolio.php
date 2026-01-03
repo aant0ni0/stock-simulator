@@ -6,7 +6,9 @@
 <div class="portfolio-summary">
 
     <div class="summary-card">
-        <div class="summary-icon blue">💼</div>
+        <div class="summary-icon blue">
+            <i data-lucide="wallet"></i>
+        </div>
         <div>
             <span class="muted">Total Value</span>
             <strong>$<?= number_format($totalValue, 2) ?></strong>
@@ -14,7 +16,9 @@
     </div>
 
     <div class="summary-card">
-        <div class="summary-icon green">$</div>
+        <div class="summary-icon green">
+            <i data-lucide="dollar-sign"></i>
+        </div>
         <div>
             <span class="muted">Cash Balance</span>
             <strong class="success">$<?= number_format($cash, 2) ?></strong>
@@ -22,7 +26,9 @@
     </div>
 
     <div class="summary-card">
-        <div class="summary-icon purple">📈</div>
+        <div class="summary-icon purple">
+            <i data-lucide="pie-chart"></i>
+        </div>
         <div>
             <span class="muted">Holdings Value</span>
             <strong>$<?= number_format($holdingsValue, 2) ?></strong>
@@ -31,7 +37,7 @@
 
     <div class="summary-card">
         <div class="summary-icon <?= $totalPnL >= 0 ? 'green' : 'red' ?>">
-            <?= $totalPnL >= 0 ? '▲' : '▼' ?>
+            <i data-lucide="<?= $totalPnL >= 0 ? 'trending-up' : 'trending-down' ?>"></i>
         </div>
         <div>
             <span class="muted">Total P&amp;L</span>
@@ -95,8 +101,8 @@
                             <input
                                     type="number"
                                     name="quantity"
-                                    step="0.01"
-                                    min="0.01"
+                                    step="1"
+                                    min="1"
                                     max="<?= $quantity ?>"
                                     required
                             >

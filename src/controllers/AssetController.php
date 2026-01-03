@@ -28,6 +28,7 @@ class AssetController extends Controller
         $history = $priceRepo->getLast30Days($stockId);
 
         $this->render('asset', [
+            'page' => 'asset',
             'asset' => $asset,
             'history' => $history,
             'change24h' => $change24h
