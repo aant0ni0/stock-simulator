@@ -8,9 +8,23 @@ $chartData = array_map(fn($row) => [
 
 <section class="asset-header">
     <div class="asset-navigation">
-        <a href="/dashboard" class="back-link">
+        <?php
+
+        $ref  = $_SERVER['HTTP_REFERER'] ?? '';
+        $path = parse_url($ref, PHP_URL_PATH) ?? '';
+
+        $map = [
+                '/portfolio'   => 'Portfolio',
+                '/dashboard'   => 'Dashboard',
+        ];
+
+        $backUrl  = array_key_exists($path, $map) ? $path : '/dashboard';
+        $backName = $map[$path] ?? 'Dashboard';
+
+        ?>
+        <a href="<?= $backUrl ?>" class="back-link">
             <i data-lucide="arrow-left"></i>
-            Back to Dashboard
+            Back to <?= $backName ?>
         </a>
     </div>
 

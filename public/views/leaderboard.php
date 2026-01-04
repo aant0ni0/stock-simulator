@@ -51,25 +51,16 @@
             $isYou = $user['id'] == $currentUserId;
             ?>
             <tr class="<?= $isYou ? 'you-row' : '' ?>">
-                <td>
-                    <?= $rank <= 3 ? '🏅' : '#' . $rank ?>
-                </td>
-
-                <td>
+                <td data-label="Rank"><?= $rank <= 3 ? '🏅' : '#' . $rank ?></td>
+                <td data-label="User">
                     <?= htmlspecialchars($user['email']) ?>
-                    <?php if ($isYou): ?>
-                        <span class="you-badge">You</span>
-                    <?php endif; ?>
+                    <?php if ($isYou): ?><span class="you-badge">You</span><?php endif; ?>
+                </td>
+                <td data-label="Portfolio Value">$<?= number_format($user['total_value'], 2) ?></td>
+                <td data-label="24h Change" class="<?= $change >= 0 ? 'success' : 'danger' ?>">
+                    <?= $change >= 0 ? '+' : '' ?><?= number_format($change, 2) ?>%
                 </td>
 
-                <td>
-                    $<?= number_format($user['total_value'], 2) ?>
-                </td>
-
-                <td class="<?= $change >= 0 ? 'success' : 'danger' ?>">
-                    <?= $change >= 0 ? '+' : '' ?>
-                    <?= number_format($change, 2) ?>%
-                </td>
             </tr>
         <?php endforeach; ?>
 

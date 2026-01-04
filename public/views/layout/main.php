@@ -26,6 +26,16 @@
 
 <body data-page="<?= $page ?? '' ?>">
 
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<header class="mobile-header">
+    <button class="hamburger" id="openSidebar">
+        <i data-lucide="menu"></i>
+    </button>
+    <span class="mobile-title">Stock Simulator</span>
+</header>
+
+
 <div class="app-layout">
 
     <aside class="sidebar">

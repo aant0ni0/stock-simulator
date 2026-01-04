@@ -1,0 +1,61 @@
+
+.mobile-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+
+    height: 3.5rem;
+    padding: 0 var(--space-md);
+
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+
+    position: sticky;
+    top: 0;
+    z-index: 90;
+}
+
+.mobile-title {
+    font-weight: 600;
+}
+
+.hamburger {
+    background: none;
+    border: none;
+    padding: 0.25rem;
+    cursor: pointer;
+}
+
+.hamburger svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+
+    z-index: 80;
+}
+
+.sidebar-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+@media (min-width: 1024px) {
+    .mobile-header {
+        display: none;
+    }
+
+    .sidebar-backdrop {
+        display: none;
+    }
+}

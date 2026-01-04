@@ -5,6 +5,8 @@
 @import "./layout/main.css";
 @import "./layout/sidebar.css";
 @import "./layout/content.css";
+@import "./layout/layout.css";
+
 
 @import "./components/flash.css";
 

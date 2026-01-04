@@ -1,5 +1,11 @@
 .content {
     flex: 1;
-    padding: var(--space-xl);
+    padding: var(--space-lg);
     background: linear-gradient(180deg, #EEF5FF 0%, #EAF2FF 100%);
+}
+
+@media (min-width: 1024px) {
+    .content {
+        padding: var(--space-xl);
+    }
 }

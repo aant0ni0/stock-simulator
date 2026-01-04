@@ -1,11 +1,21 @@
+
 .portfolio-header {
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-lg);
+}
+
+.portfolio-header h1 {
+    font-size: 1.25rem;
+}
+
+.muted {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
 }
 
 .portfolio-summary {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-lg);
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
     margin-bottom: var(--space-xl);
 }
 
@@ -13,21 +23,29 @@
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
-    padding: var(--space-lg);
+    padding: var(--space-md);
+
     display: flex;
     align-items: center;
     gap: var(--space-md);
 }
 
 .summary-icon {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border-radius: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
+
     color: #fff;
+}
+
+.summary-card strong {
+    display: block;
+    margin-top: 0.125rem;
+    font-size: 1rem;
 }
 
 .summary-icon.blue { background: #3b82f6; }
@@ -35,25 +53,59 @@
 .summary-icon.red { background: var(--color-danger); }
 .summary-icon.purple { background: #a855f7; }
 
+
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+}
+
+
 .portfolio-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: var(--space-md);
+    display: block;
+    overflow-x: auto;
 }
 
 .portfolio-table th {
     text-align: left;
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
-    padding-bottom: var(--space-sm);
+    padding: 0.75rem 0;
     border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
 }
 
 .portfolio-table td {
-    padding: var(--space-md) 0;
+    padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
     vertical-align: middle;
 }
+
+.portfolio-table th{
+    padding-left: 1rem;
+}
+
+.asset-info-row{
+    border-radius: var(--radius-md);
+}
+
+.asset-info-row:hover {
+    background: var(--color-primary-soft);
+}
+
+.cell-link{
+    cursor: pointer;
+}
+
+.cell-link:active {
+    color: var(--color-primary);
+}
+
 
 .pnl-badge {
     padding: 0.25rem 0.5rem;
@@ -72,18 +124,116 @@
     color: var(--color-danger);
 }
 
+.success { color: var(--color-success); }
+.danger { color: var(--color-danger); }
+
+
 .sell-form {
     display: flex;
     gap: var(--space-sm);
+    align-items: center;
 }
 
 .sell-form input {
-    width: 5rem;
+    width: 4.5rem;
     padding: 0.4rem;
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
     font-family: inherit;
 }
 
-.success { color: var(--color-success); }
-.danger { color: var(--color-danger); }
+.btn-sell {
+    background: var(--color-danger);
+    color: #fff;
+    border-radius: var(--radius-md);
+    padding: 0.45rem 0.75rem;
+    border: none;
+    cursor: pointer;
+}
+
+
+@media (min-width: 768px) {
+
+    .portfolio-summary {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-lg);
+    }
+
+    .summary-card {
+        padding: var(--space-lg);
+    }
+
+    .summary-card strong {
+        font-size: 1.1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .portfolio-summary {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .portfolio-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .summary-icon {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .summary-card strong {
+        font-size: 1.2rem;
+    }
+
+    .portfolio-table {
+        display: table;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .portfolio-table,
+    .portfolio-table thead,
+    .portfolio-table tbody,
+    .portfolio-table th,
+    .portfolio-table td,
+    .portfolio-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    .portfolio-table thead {
+        display: none;
+    }
+
+    .portfolio-table tr {
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: var(--space-md);
+        margin-bottom: var(--space-md);
+        background: var(--color-surface);
+    }
+
+    .portfolio-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.4rem 0;
+        border: none;
+        font-size: 0.875rem;
+    }
+
+    .portfolio-table td::before {
+        content: attr(data-label);
+        font-weight: 500;
+        color: var(--color-text-muted);
+    }
+
+    .sell-form {
+        justify-content: flex-end;
+        margin-top: var(--space-sm);
+    }
+}
+

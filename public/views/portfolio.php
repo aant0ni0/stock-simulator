@@ -81,34 +81,30 @@
                 $pnlPct = $avg > 0 ? ($pnl / ($avg * $quantity)) * 100 : 0;
                 $isUp = $pnl >= 0;
                 ?>
-                <tr>
-                    <td><strong><?= htmlspecialchars($h['symbol']) ?></strong></td>
-                    <td><?= $quantity ?></td>
-                    <td>$<?= number_format($avg, 2) ?></td>
-                    <td>$<?= number_format($current, 2) ?></td>
-                    <td>$<?= number_format($total, 2) ?></td>
-                    <td class="<?= $isUp ? 'success' : 'danger' ?>">
+
+                <tr class="asset-info-row">
+
+                    <td data-label="Asset"><a href="/asset?id=<?= (int)$h['stock_id'] ?>" class="cell-link"><strong><?= htmlspecialchars($h['symbol']) ?></strong></a></td>
+                    <td data-label="Quantity"><?= $quantity ?></td>
+                    <td data-label="Avg. Price">$<?= number_format($avg, 2) ?></td>
+                    <td data-label="Current Price">$<?= number_format($current, 2) ?></td>
+                    <td data-label="Total Value">$<?= number_format($total, 2) ?></td>
+                    <td data-label="Profit / Loss" class="<?= $isUp ? 'success' : 'danger' ?>">
                         <?= $isUp ? '+' : '' ?>$<?= number_format($pnl, 2) ?>
                     </td>
-                    <td>
-                        <span class="pnl-badge <?= $isUp ? 'up' : 'down' ?>">
-                            <?= $isUp ? '+' : '' ?><?= number_format($pnlPct, 2) ?>%
-                        </span>
+                    <td data-label="P&L %">
+        <span class="pnl-badge <?= $isUp ? 'up' : 'down' ?>">
+            <?= $isUp ? '+' : '' ?><?= number_format($pnlPct, 2) ?>%
+        </span>
                     </td>
-                    <td>
+                    <td data-label="Action">
                         <form method="POST" action="/sell" class="sell-form">
                             <input type="hidden" name="stock_id" value="<?= (int)$h['stock_id'] ?>">
-                            <input
-                                    type="number"
-                                    name="quantity"
-                                    step="1"
-                                    min="1"
-                                    max="<?= $quantity ?>"
-                                    required
-                            >
+                            <input type="number" name="quantity" step="1" min="1" max="<?= $quantity ?>" required>
                             <button type="submit" class="btn btn-sell">Sell</button>
                         </form>
                     </td>
+
                 </tr>
             <?php endforeach; ?>
             </tbody>
