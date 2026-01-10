@@ -3,6 +3,12 @@
     min-height: 100vh;
 }
 
+.no-valid {
+    border: 1px solid #ef4444 !important;
+    background-color: #fee2e2;
+}
+
+
 @media (max-width: 1023px) {
     .app-layout {
         flex-direction: column;

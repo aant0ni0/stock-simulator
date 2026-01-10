@@ -1,5 +1,7 @@
 <div class="auth-card">
-    <div class="auth-logo">📈</div>
+    <div class="auth-logo">
+        <img src="/assets/images/icon.png" alt="Stock Simulator" class="login-logo-icon">
+    </div>
 
     <h1 class="auth-title">Stock Market Simulator</h1>
     <p class="auth-subtitle">Sign in to your account to continue</p>

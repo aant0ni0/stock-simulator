@@ -1,15 +1,11 @@
--- =========================
--- RESET (bezpieczny)
--- =========================
+
 DROP TABLE IF EXISTS stock_price_history CASCADE;
 DROP TABLE IF EXISTS transactions CASCADE;
 DROP TABLE IF EXISTS portfolio CASCADE;
 DROP TABLE IF EXISTS stocks CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
--- =========================
--- USERS
--- =========================
+
 CREATE TABLE users (
                        id SERIAL PRIMARY KEY,
                        username VARCHAR(50) NOT NULL UNIQUE,
@@ -19,9 +15,7 @@ CREATE TABLE users (
                        created_at TIMESTAMP DEFAULT NOW()
 );
 
--- =========================
--- STOCKS (AKCJE / ASSETS)
--- =========================
+
 CREATE TABLE stocks (
                         id SERIAL PRIMARY KEY,
                         symbol VARCHAR(10) NOT NULL UNIQUE,
@@ -30,9 +24,7 @@ CREATE TABLE stocks (
                         price_updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
--- =========================
--- PORTFOLIO
--- =========================
+
 CREATE TABLE portfolio (
                            user_id INT NOT NULL,
                            stock_id INT NOT NULL,
@@ -50,9 +42,7 @@ CREATE TABLE portfolio (
                                    ON DELETE CASCADE
 );
 
--- =========================
--- TRANSACTIONS
--- =========================
+
 CREATE TABLE transactions (
                               id SERIAL PRIMARY KEY,
                               user_id INT NOT NULL,
@@ -73,9 +63,7 @@ CREATE TABLE transactions (
                                       ON DELETE CASCADE
 );
 
--- =========================
--- STOCK PRICE HISTORY
--- =========================
+
 CREATE TABLE stock_price_history (
                                      id SERIAL PRIMARY KEY,
                                      stock_id INT NOT NULL,
@@ -88,10 +76,7 @@ CREATE TABLE stock_price_history (
                                              ON DELETE CASCADE
 );
 
--- =========================
--- SAMPLE USERS
--- hasło: test123
--- =========================
+
 INSERT INTO users (username, email, password_hash) VALUES
                                                        (
                                                            'alice',
@@ -104,17 +89,27 @@ INSERT INTO users (username, email, password_hash) VALUES
                                                            '$2y$10$Zy8kz8pCzZ8XhZlZtY6n6eN7rJ6A6m9q0cZkQe9E0u6zXxQX5aWcG'
                                                        );
 
--- =========================
--- SAMPLE STOCKS
--- =========================
 INSERT INTO stocks (symbol, name, price) VALUES
                                              ('BTC', 'Bitcoin', 40000),
                                              ('ETH', 'Ethereum', 2200),
                                              ('AAPL', 'Apple Inc.', 180),
                                              ('TSLA', 'Tesla Inc.', 250);
 
--- =========================
--- INITIAL PRICE HISTORY
--- =========================
+
 INSERT INTO stock_price_history (stock_id, price)
 SELECT id, price FROM stocks;
+
+CREATE TABLE user_portfolio_snapshots (
+                                          id SERIAL PRIMARY KEY,
+                                          user_id INT NOT NULL,
+                                          total_value NUMERIC(12,2) NOT NULL,
+                                          created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+
+                                          CONSTRAINT fk_snapshot_user
+                                              FOREIGN KEY (user_id)
+                                                  REFERENCES users(id)
+                                                  ON DELETE CASCADE
+);
+
+INSERT INTO user_portfolio_snapshots (user_id, total_value)
+SELECT id, cash FROM users;
