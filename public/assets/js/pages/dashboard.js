@@ -31,4 +31,19 @@ export default function initDashboard() {
             }
         });
     });
+
+
+    const input = document.getElementById("assetSearch");
+    if (!input) return;
+
+    const rows = document.querySelectorAll(".asset-row");
+
+    input.addEventListener("input", () => {
+       const query = input.value.toLowerCase().trim();
+
+       rows.forEach(row =>{
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(query) ? "" : "none";
+       })
+    });
 }

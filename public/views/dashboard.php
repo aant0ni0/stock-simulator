@@ -17,6 +17,14 @@
     <section class="card">
         <h2 class="card-title">Available Assets</h2>
 
+        <div class="asset-search">
+            <i data-lucide="search" class="search-icon"></i>
+            <input
+                    type="text"
+                    id="assetSearch"
+                    placeholder="Search asset (e.g. AAPL, Tesla…)">
+        </div>
+
         <div class="assets-scroll">
 
         <?php foreach ($stocks as $s): ?>
