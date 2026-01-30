@@ -93,6 +93,6 @@
 
 </div>
 
-<script type="module" src="/assets/js/app.js"></script>
+<script type="module" src="/assets/js/app.js" defer></script>
 </body>
 </html>
